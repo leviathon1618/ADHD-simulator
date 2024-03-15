@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - tab
+  - flappy background
+  - flappy base
+  - flappy pipe
   layers:
   - Default
   - TransparentFX
