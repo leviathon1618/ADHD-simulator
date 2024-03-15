@@ -50,8 +50,12 @@ public class screen : MonoBehaviour
                     if (hit2.collider != null)
                     {
                         //Debug.Log(hit2.collider.name);
-                        switch_tab(hit2.collider.name);
-                        hit2.transform.GetChild(0).gameObject.SetActive(true);
+                        if (hit2.transform.tag == "tab")
+                        {
+                            switch_tab(hit2.collider.name);
+                            hit2.transform.GetChild(0).gameObject.SetActive(true);
+                        }
+                        
                     }
                 }
             }
