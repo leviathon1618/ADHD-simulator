@@ -5,10 +5,15 @@ using UnityEngine;
 public class screen : MonoBehaviour
 {
     public List<GameObject> tabs;
+
+    //Game objects
+    pinata_manager pin_man = null;
+    public GameObject pinataManagerObject;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        pin_man = pinataManagerObject.GetComponent<pinata_manager>();
     }
 
     public void switch_tab(string tab_name)
@@ -50,8 +55,22 @@ public class screen : MonoBehaviour
                     if (hit2.collider != null)
                     {
                         //Debug.Log(hit2.collider.name);
-                        switch_tab(hit2.collider.name);
-                        hit2.transform.GetChild(0).gameObject.SetActive(true);
+                        if (hit2.transform.tag == "tab")
+                        {
+                            switch_tab(hit2.collider.name);
+                            hit2.transform.GetChild(0).gameObject.SetActive(true);
+                        }
+
+
+
+
+                        //Pinata click stuff
+                        if (hit2.transform.tag == "pinata_clickable")
+                        {
+                            pin_man.click_score++;
+                            Debug.Log(pin_man.click_score.ToString());
+                        }
+
                     }
                 }
             }
