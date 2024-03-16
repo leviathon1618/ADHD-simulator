@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +42,7 @@ public class screen : MonoBehaviour
                     {
                         if (hit2.transform.tag == "tab")
                         {
+                            print(hit2.transform.name);
                             switch_tab(hit2.collider.name);
                             hit2.transform.GetChild(0).gameObject.SetActive(true);
                         }
