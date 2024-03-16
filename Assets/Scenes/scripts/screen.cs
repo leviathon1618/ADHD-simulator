@@ -5,11 +5,10 @@ using UnityEngine;
 public class screen : MonoBehaviour
 {
     public List<GameObject> tabs;
-
     //Game objects
     pinata_manager pin_man = null;
     public GameObject pinataManagerObject;
-
+    public flappy_controller flappy_bird;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +17,6 @@ public class screen : MonoBehaviour
 
     public void switch_tab(string tab_name)
     {
-
         foreach (var item in tabs)
         {
             if (item.name != tab_name)
@@ -26,16 +24,6 @@ public class screen : MonoBehaviour
                 item.transform.GetChild(0).gameObject.SetActive(false);
             }
         }
-        
-        
-        //switch (tab_name)
-        //{
-        //    case "tab (0)":
-
-        //        break;
-        //    default:
-        //        break;
-        //}
     }
 
 
@@ -70,6 +58,7 @@ public class screen : MonoBehaviour
                             pin_man.click_score++;
                             Debug.Log(pin_man.click_score.ToString());
                         }
+
 
                     }
                 }
