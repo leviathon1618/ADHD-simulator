@@ -5,6 +5,7 @@ using UnityEngine;
 public class screen : MonoBehaviour
 {
     public List<GameObject> tabs;
+    public flappy_controller flappy_bird;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +14,6 @@ public class screen : MonoBehaviour
 
     public void switch_tab(string tab_name)
     {
-
         foreach (var item in tabs)
         {
             if (item.name != tab_name)
@@ -21,16 +21,6 @@ public class screen : MonoBehaviour
                 item.transform.GetChild(0).gameObject.SetActive(false);
             }
         }
-        
-        
-        //switch (tab_name)
-        //{
-        //    case "tab (0)":
-
-        //        break;
-        //    default:
-        //        break;
-        //}
     }
 
 
@@ -49,13 +39,11 @@ public class screen : MonoBehaviour
 
                     if (hit2.collider != null)
                     {
-                        //Debug.Log(hit2.collider.name);
                         if (hit2.transform.tag == "tab")
                         {
                             switch_tab(hit2.collider.name);
                             hit2.transform.GetChild(0).gameObject.SetActive(true);
                         }
-                        
                     }
                 }
             }
