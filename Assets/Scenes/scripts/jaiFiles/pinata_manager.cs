@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class pinata_manager : MonoBehaviour
 {
@@ -11,17 +12,13 @@ public class pinata_manager : MonoBehaviour
     public float time_left = 3.0f;
     public float despawn_time_baseline = 5.0f;
     public float time_to_despawn = 0.0f;
-    private enum Clickability
-    {
-        Left,
-        Right,
-        Both
-    }
 
-    public List<List<string>> test2 = new List<List<string>>();
-
-    private Clickability click_direction = Clickability.Both;
-    public int button_set = 0;
+    private string last_clicked = "";
+    public List<List<string>> key_lists = new List<List<string>>();
+    private int button_set = 0;
+    
+    public TMP_Text left_key;
+    public TMP_Text right_key;
     
 
     // Start is called before the first frame update
@@ -29,6 +26,12 @@ public class pinata_manager : MonoBehaviour
     {
         click_score = 0;
         pinata_button.SetActive(false);
+
+        key_lists.Add(new List<string> { "q", "w" });
+        key_lists.Add(new List<string> { "w", "e" });
+        key_lists.Add(new List<string> { "a", "s" });
+        key_lists.Add(new List<string> { "s", "d" });
+        int rand = Random.Range(0, 5);
     }
 
     // Update is called once per frame
@@ -46,118 +49,38 @@ public class pinata_manager : MonoBehaviour
         {
             time_to_despawn -= Time.deltaTime;
             pinata_button.SetActive(true);
-            Debug.Log(click_score.ToString());
+            spam_buttons(key_lists[button_set][0], key_lists[button_set][1]);
         }
         else
         {
             pinata_button.SetActive(false);
             button_set = 0;
         }
-
-        switch (button_set)
-        {
-            case 1:
-                if (click_direction == Clickability.Both && Input.GetKeyDown("Q"))
-                {
-                    click_direction = Clickability.Right;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Both && Input.GetKeyDown(KeyCode.W))
-                {
-                    click_direction = Clickability.Left;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Left && Input.GetKeyDown(KeyCode.Q))
-                {
-                    click_direction = Clickability.Right;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Right && Input.GetKeyDown(KeyCode.W))
-                {
-                    click_direction = Clickability.Left;
-                    click_score++;
-                } 
-                break;
-            case 2:
-                if (click_direction == Clickability.Both && Input.GetKeyDown(KeyCode.W))
-                {
-                    click_direction = Clickability.Right;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Both && Input.GetKeyDown(KeyCode.E))
-                {
-                    click_direction = Clickability.Left;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Left && Input.GetKeyDown(KeyCode.W))
-                {
-                    click_direction = Clickability.Right;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Right && Input.GetKeyDown(KeyCode.E))
-                {
-                    click_direction = Clickability.Left;
-                    click_score++;
-                }
-                break;
-            case 3:
-                if (click_direction == Clickability.Both && Input.GetKeyDown(KeyCode.A))
-                {
-                    click_direction = Clickability.Right;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Both && Input.GetKeyDown(KeyCode.S))
-                {
-                    click_direction = Clickability.Left;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Left && Input.GetKeyDown(KeyCode.A))
-                {
-                    click_direction = Clickability.Right;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Right && Input.GetKeyDown(KeyCode.S))
-                {
-                    click_direction = Clickability.Left;
-                    click_score++;
-                }
-                break;
-            case 4:
-                if (click_direction == Clickability.Both && Input.GetKeyDown(KeyCode.S))
-                {
-                    click_direction = Clickability.Right;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Both && Input.GetKeyDown(KeyCode.D))
-                {
-                    click_direction = Clickability.Left;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Left && Input.GetKeyDown(KeyCode.S))
-                {
-                    click_direction = Clickability.Right;
-                    click_score++;
-                }
-                else if (click_direction == Clickability.Right && Input.GetKeyDown(KeyCode.D))
-                {
-                    click_direction = Clickability.Left;
-                    click_score++;
-                }
-                break;
-            default:
-                break;
-        }
-
-
-
     }
 
-    void SpawnPinata()
+    private void SpawnPinata()
     {
         time_to_despawn = despawn_time_baseline;
         pinata_button.SetActive(true);
         click_score = 0;
         button_set = Random.Range(1,5);
-        click_direction = Clickability.Both;
+        last_clicked = "";
+        left_key.SetText(key_lists[button_set][0].ToUpper());
+        right_key.SetText(key_lists[button_set][1].ToUpper());
+    }
+
+
+    private void spam_buttons(string left_button, string right_button)
+    {
+        if (Input.GetKeyDown(left_button) && last_clicked != left_button)
+        {
+            last_clicked = left_button;
+            click_score++;
+        }
+        else if (Input.GetKeyDown(right_button) && last_clicked != right_button)
+        {
+            last_clicked = right_button;
+            click_score++;
+        }
     }
 }
