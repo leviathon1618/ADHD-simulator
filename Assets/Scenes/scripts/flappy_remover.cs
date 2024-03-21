@@ -11,7 +11,10 @@ public class flappy_remover : MonoBehaviour
         {
             collision.transform.Translate(5 * 2.88f * 2, 0, 0);
         }
-        
+        if (collision.tag == "flappy base")
+        {
+            collision.transform.Translate(5 * 3.36f * 2, 0, 0);
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -20,10 +23,7 @@ public class flappy_remover : MonoBehaviour
             
             collision.transform.Translate(4 * 3.36f * 2 - 10f, 0, 0);
         }
-        if (collision.transform.tag == "flappy base")
-        {
-            collision.transform.Translate(5 * 3.36f * 2, 0, 0);
-        }
+        
     }
 
 }

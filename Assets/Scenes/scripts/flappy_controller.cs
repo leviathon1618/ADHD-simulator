@@ -7,15 +7,19 @@ public class flappy_controller : MonoBehaviour
     public flappy_bird flappy_script;
 
     public List<string> options= new List<string>();
+    public List<List<string>> test2 = new List<List<string>>();
 
     // Start is called before the first frame update
     void Start()
     {
-
+        test2.Add(new List<string> { "w", "q" });
+        int rand = Random.Range(0, 5);
+        spam_buttons(test2[rand][0], test2[rand][1]);
     }
 
     public void Reset_player()
     {
+        
         GetComponent<Animator>().SetBool("flap", false);
     }
 
@@ -23,20 +27,12 @@ public class flappy_controller : MonoBehaviour
     {
         if (collision.transform.tag == "flappy pipe")
         {
+            print("you lose");
             flappy_script.initiate_flappy();
-            flappy_script.score= 0;
-            flappy_script.set_score();
         }
     }
-    public void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.name == "score")
-        {
-            flappy_script.score++;
-            flappy_script.set_score();
-        }
-    }
-    
+
+
     // Update is called once per frame
     void Update()
     {
@@ -44,6 +40,19 @@ public class flappy_controller : MonoBehaviour
         {
             GetComponent<Animator>().SetBool("flap",true);
             transform.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 10,ForceMode2D.Impulse);
+            
+
         }
     }
+
+
+    //qw 
+    public void spam_buttons(string btn1,string btn2)
+    {
+        if (Input.GetKeyDown(btn1))
+        {
+            
+        }
+    }
+
 }
