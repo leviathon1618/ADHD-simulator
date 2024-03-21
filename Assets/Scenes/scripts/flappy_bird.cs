@@ -32,15 +32,12 @@ public class flappy_bird : MonoBehaviour
     public void set_score()
     {
         string score_string = score.ToString();
-        string[] split_score = score_string.Split();
-        var num1 = Convert.ToInt32(split_score[0]);
-        
-
+        var num1 = Convert.ToInt32(score_string[0].ToString());
         number1.GetComponent<SpriteRenderer>().sprite = numbers[num1].GetComponent<SpriteRenderer>().sprite;
 
-        if (score >9)
+        if (score > 9)
         {
-            var num2 = Convert.ToInt32(split_score[1]);
+            var num2 = Convert.ToInt32(score_string[1].ToString());
             number2.SetActive(true);
             number2.GetComponent<SpriteRenderer>().sprite = numbers[num2].GetComponent<SpriteRenderer>().sprite;
         }
@@ -67,7 +64,7 @@ public class flappy_bird : MonoBehaviour
         
         for (int i = 0; i < 5; i++)
         {
-            GameObject bg = Instantiate(background_obj, new Vector2(i * 2.88f * 2 - 10f, 0), quaternion.identity, moving_object.transform);
+            GameObject bg = Instantiate(background_obj, new Vector2(i * 2.88f * 2 - 10f, -1), quaternion.identity, moving_object.transform);
             GameObject floor = Instantiate(base_obj, new Vector2(i * 3.36f * 2 - 10f, -5f), quaternion.identity, moving_object.transform);
             float y_pos = UnityEngine.Random.Range(3f, -2.7f);
             GameObject pipe = Instantiate(pipe_obj, new Vector2(i * 3.36f * 2, y_pos + 5), quaternion.identity, moving_object.transform);
