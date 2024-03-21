@@ -8,7 +8,6 @@ TagManager:
   - flappy background
   - flappy base
   - flappy pipe
-  - pinata_clickable
   layers:
   - Default
   - TransparentFX
